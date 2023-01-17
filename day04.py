@@ -1,37 +1,42 @@
-#list
+# #list
 
-# scores=('B+', 'A+', 'C+')
-# print(scores[1], scores[2])
-# temp=list(scores)
-# temp[1]='C+'
-# temp[2]='A+'
-# scores=tuple(temp)
-# print(scores[1], scores[2])
+import copy
+a=[1,2,[5,-9]]
+b=copy.deepcopy(a)
+a[2][1]=7 #mutable, deepcopy(별도의 메모리 공간 할당, 각방. 명확히 복제본을 분리. 단, 메모리 많이 든다)
+print(a,b)
 
-big_bang = ['GD','태양','TOP','대성','승리']
-exo = ['백현','첸']
-#big_bang.append('인하')  #append는 뒤에 추가
-big_bang.insert(1, '인하')  #추가할 인덱스 -> 나머지 뒤로 밀림
-print(big_bang*3)
-exo.append(big_bang)  #append :리스트 안에 리스트[]가 들어감
-# exo.extend(big_bang)  #extend :결합
-# print(exo)
-# print(exo[2][2])  #exo[2]에는 리스트가 있음. 내부 리스트의 [2]
-# print(exo[3])
+
+
+
+# a=[1,2,[5,-9]]  #mutable, b/c/d affects
+# b=a.copy()
+# c=list(a)
+# d=a[:]
+# a[2][1]=7
+# print(a,b,c,d)  ##이떈 list라 불변 아님, 따라서 a만 바꿔도 b,c,d에서도 바뀜 -> deepcopy라고 하기 어려움
+
+
+# a=[1,2,3]
+# b=a.copy()
+# c=list(a)
+# d=a[:]
+# a[2]='sw'   #immutable
+# print(a,b,c,d)  #얜 안바뀜
+
+
+
+# mixed = [6, 4, 5, 'A', 7, '트와이스', 'B', 'b','마마무']
+# mixed.sort()
+# print(mixed)
+# mixed.sort(reverse==Tu=rue)
+# lfj gu[primes;p01;1
 #
-# exo[-8]='시우민'  #교체됨
-print(exo)
 
-#항목 삭제하기
 
-#print(exo.pop()) #빅뱅 pop
-print(exo[2].pop()) #승리 pop
-print(exo)
-print(exo[2].pop(-2))  #탑 pop
-print(exo)
-
-del exo[2][-1]  #대성 delete
-print(exo)
-
-exo[2].remove('인하')  #인하 remove /exo[2]까지 가서 지워야함/ (이름 두 개 일땐 앞에것만 지움)
-print(exo)
+# primes = [2, 19, 3.0, 5, 7, 11]
+# primes_sorted = sorted(primes)
+# print(primes)
+# print(primes_sorted)
+# primes.sort()
+# print(primes)
