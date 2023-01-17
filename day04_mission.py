@@ -1,41 +1,40 @@
-#연습문제 7.1
-year=int(input())
-year_lists=[i for i in range(year,year+6)]
-print(year_lists)
+#연습문제 8.1
+e2f = {'dog':'chien', 'cat':'chat', 'walrus':'morse'}
+print(e2f)
 
-#7.2
-print(f'세번째 생일 : {year_lists[3]}')
+#8.2
+print(e2f['walrus'])
 
-#7.3
-print(f'가장 나이 많을 때 : {year_lists[-1]}')
+#8.3
+# f2e=list(e2f.items())
+# print(f2e) 오답
+f2e={}
+for english, french in e2f.items():
+    f2e[french]=english
+print(f2e)
 
-#7.8
-surprise = ["Groucho", "Chico", "Harpo"]
 
-#7.9
-surprise[2]=surprise[2].lower()
-print(surprise)
-surprise[2]=surprise[2][::-1].title()
-print(surprise)
+#8.4 ??
+# e2f_keys=list(e2f.keys())
+# print(e2f_keys[0])
+print(f2e['chien'])
 
-#7.10
-even = [i for i in range(10) if i%2==0]
-print(even)
+#8.5
+e2f_keys=list(e2f.keys())
+print(e2f_keys)
 
-#7.11
-start1=["fee", "fie", "foe"]
-rhymes=[
-    ("float", "get a mop"),
-    ("fope", "turn the rope"),
-    ("fa", "get your ma"),
-    ("fudge", "call the judge"),
-    ("fat", "pet the cat"),
-    ("fog", "walk the dog"),
-    ("fun", "say we're done"),
-]
-start2="Someone better"
+#8.6
+life={'animals':{'cats':'Henri', 'octopi':'Grumpy', 'emus':'Lucy'}, 'plants':' ' , 'other':'' }
 
-for i in range(7):
-    print(f'{start1[0].title()}! {start1[1].title()}! {start1[2].title()}!', end=' ')
-    print(f'{rhymes[i][0].title()}!')
-    print(f'{start2} {rhymes[i][1]}.')
+#8.7
+print(f'life 최상위 키 {list(life.keys())}')
+
+#8.8
+print(f"life['animals']으 모든 키 {list(life['animals'].keys())}")
+
+#8.9
+print(f"life['animals']['cats']의 모든 값 {(life['animals']['cats'])}")
+
+#8.10
+squares={i:i*i for i in range(10)}
+print(squares)
