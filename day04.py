@@ -22,6 +22,12 @@ alcohol_foods = {
 alcohol_list = list(alcohol_foods) #키 값만 추출 extract keys
 food_list = [food for food in alcohol_foods.values()]
 print(alcohol_list, food_list)
+#for food in food_list:
+#   print(food)   ##파이써닉한 방법
+
+#for food in enumerate(food_list):   #enumerate : tuple
+#    print()
+
 while True:
     alcohol = input(f'술을 선택하세요 1) {alcohol_list[0]} 2){alcohol_list[1]} 3){alcohol_list[2]} 4){alcohol_list[3]} 5) 계산 :  6) 아무거나 ')
     if alcohol == '5':
@@ -48,3 +54,6 @@ import random
 number = [random.randint(0,200) for i in range(10)]
 
 print(number)
+
+
+#결합하기
