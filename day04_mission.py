@@ -12,6 +12,7 @@ f2e={}
 for english, french in e2f.items():
     f2e[french]=english
 print(f2e)
+#items()가 key, value 두 개로 이루어져 있음 k,v의 명을 english, french로 내가 정한거임
 
 
 #8.4 ??
