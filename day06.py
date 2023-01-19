@@ -1,36 +1,23 @@
-#예외
+#class
+
+class Pokemon:
+    def __init__(self, name, owner, skills):  #객체 생성 시 동작
+        self.name = name
+        self.owner = owner
+        self.skills = skills.split('/')
+        print(f"포켓몬 {name} 객체 생성됨")
+
+    def info(self):
+        print(f'{self.owner}의 포켓몬 {self.name}')
+        for skill in self.skills:
+            print(skill)
 
 
-# def div_calc(a, b):
-#     """
-#     나누기 함수
-#     :param a: 분자
-#     :param b: 분모
-#     :return: 계산결과
-#     """
-#     return a / b
-#
-# print(div_calc(15, 3))
+p1=Pokemon('피카츄', '한지우', '50만 볼트/100만 볼트/번개')
+p2=Pokemon('꼬부기', '오바람', '고속스핀/거품/몸통박치기/하이드로펌프')
 
+p2.info()
+p1.info()
+print(p2.skills)
+print(p1,p2)  #메모리 주소 다름 -> 다른 두 개의 객체
 
-try:
-    raise Exception("쉬는 시간")
-    expr = input('분자 분모 입력 : ').split()
-    print(int(expr[0])/int(expr[1]))
-#vALUEeRROR
-#ZeroDivisionError
-except ValueError:
-    print('숫자 입력')
-except ZeroDivisionError as err:  #as err 하면 시스템 오류 문구 출력 가능
-    print(err)
-    print('분모에 0')
-except IndexError as err:
-    print('입력 값 범위')
-except Exception as err:
-    print(err)
-    print('무언가 문제가 발생했습니다!')
-
-else:  #예외 발생하지 않았을 때
-    print('프로그램 정상 종료', end=' ')
-finally:  #예외 발생 여부와 상관 없이 무조건 실행
-    print('종료')
