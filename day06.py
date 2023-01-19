@@ -1,45 +1,33 @@
-# #데코레이터
-#
-#
-# #decorator
-# def document_info(func):
-#     def new_function(*args, **kwargs):
-#         print('실행 중인 함수: ', func.__name__)
-#         print('위치 기반 인수: ', args)
-#         print('키워드 기반 인수들: ', kwargs)
-#         result = func(*args, **kwargs)
-#         print('실행 결과: ', result)
-#         return result
-#     return new_function
-#
-# @document_info
-# def sub_int(x, y):
-#     return x-y
-#
-# @document_info
-# def squares(n):
-#     return n*n
-#
-#
-# print(sub_int(7,3))
-# print(squares(5))
-# # info_sub_int = document_info(sub_int)
-# # r = info_sub_int(7,3)
-# # print(r)
+def factorial_iter(n):
+    """
+    반복문을 사용한 팩토리얼 함수
+    :param n: n!
+    :return: 팩토리얼 계산 결과 값
+    """
+    result = 1
+    for k in range(1, n+1):
+        result = result*k
+    return result
 
-g=1  #<-전역변수, 얘 있으면 함수 밖에서 g를 알 수 있음.
-def print_global():
-    #g= 1  #지역변수
-    print(g)
 
-def change_print_global():
-    global g #<-전역변수 됨
-    print(g)
-    g = 2
-    print(g)
+def factorial_recu(n):
+    """
+    재귀함수를 사용한 팩토리얼 계싼 함수
+    :param n: n!
+    :return: 자기 자신을 호출 또는 1
+    """
+    if n == 1:  #끝나는 조건
+        return 1
+    else:
+        return factorial_recu(n-1) * n
 
-change_print_global()
-print_global()
-print(g)  #여기서 g를 알 수 없음
-print(globals())
-print(__name__)
+def something(n):
+    a = 5+n
+    print(a)
+
+something(1)
+
+
+
+print(factorial_iter(30))
+print(factorial_recu(30))
