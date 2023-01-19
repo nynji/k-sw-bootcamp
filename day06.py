@@ -1,15 +1,20 @@
-#generator
+#데코레이터
 
-def a():  #generator
-    yield 1  #값 반환해도 안끝남
-    yield 2
-    yield 3
+def sub_int(x, y):
+    return x-y
 
-def b():  #normal function
-    return 1  #리턴하면 끝남
-    return 2
-    return 3
+#decorator
+def document_info(func):
+    def new_function(*args, **kwargs):
+        print('실행 중인 함수: ', func.__name__)
+        print('위치 기반 인수: ', args)
+        print('키워드 기반 인수들: ', kwargs)
+        result = func(*args, **kwargs)
+        print('실행 결과: ', result)
+        return result
+    return new_function
 
-print(a(),b())
-for i in a():
-    print(i)
+print(sub_int(7,3))
+info_sub_int = document_info(sub_int)
+r = info_sub_int(7,3)
+print(r)
