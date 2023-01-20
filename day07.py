@@ -1,102 +1,75 @@
+#믹스인
 
-class Pokemon:
-    def __init__(self, owner, skills):  #객체 생성 시 동작
-        # self.name = name
-        self.owner = owner
-        self.skills = skills.split('/')
-        print(f"포켓몬 생성 : ", end=' ')
-
-    def info(self):
-        print(f'{self.owner}의 포켓몬이 사용 가능한 스킬')
-        for i in range(len(self.skills)):
-            print(f'{i+1} : {self.skills[i]}')
-        # for skill in self.skills:
-        #     print(skill)
-
-
-    def attack(self, idx):  #공통으로 공격하니까 부모 클래스에, 단 각 특성은 자식클래스에서 오버라이드
-        print(f'{self.skills[idx]} 공격 시전')
-
-
-# p1=Pokemon('피카츄', '한지우', '50만 볼트/100만 볼트/번개')
-# p2=Pokemon('꼬부기', '오바람', '고속스핀/거품/몸통박치기/하이드로펌프')
-
-class Pikachu(Pokemon):  #상속 Imheritance : 부모 포켓몬 자식 피카츄
-    def __init__(self, owner, skills):
-        super().__init__(owner, skills)
-        self.name = "피카츄"
-        print(f"{self.name}")
-
-    def attack(self, idx):  #공통으로 공격하니까 부모 클래스에, 단 각 특성은 자식클래스에서 오버라이드
-        print(f'{self.owner}의 {self.name}가 {self.skills[idx]} 공격(전기) 시전')
-
-class Ggoboogi(Pokemon):  #상속 Imheritance : 부모 포켓몬 자식 피카츄
-    def __init__(self, owner, skills):
-        super().__init__(owner, skills)  #super
-        self.name = "꼬부기"
-        print(f"{self.name}")
-
-    def attack(self, idx):  # overide (부모클래스 메서드를 자식클래스에서 재정의)
-        print(f'{self.owner}의 {self.name}가 {self.skills[idx]} 공격(물) 시전')
-
-    def swim(self):
-        print(f'{self.name}가 수영합니다.')
-
-class Pairi(Pokemon):  #상속 Imheritance : 부모 포켓몬 자식 피카츄
-    def __init__(self, owner, skills):
-        super().__init__(owner, skills)  #super
-        self.name = "파이리"
-        print(f"{self.name}")
-
-    def attack(self, idx):  # overide (부모클래스 메서드를 자식클래스에서 재정의)
-        print(f'{self.owner}의 {self.name}가 {self.skills[idx]} 공격(불) 시전')
-
-
-while True:
-    menu = input('1) 포켓몬 생성 4)프로그램 종료 : ')
-    if menu=='4':
-        print('프로그램 종료')
-        break
-    elif menu == '1':
-        pokemon = input('1) 피카츄 2) 꼬부기 3) 파이리 : ')
-        if pokemon == '1':
-            n = input('플레이어 이름 입력 : ')
-            s = input('사용 가능한 기술 입력(/로 구분) : ')
-            p = Pikachu(n,s)
-
-        elif pokemon == '2':
-            n = input('플레이어 이름 입력 : ')
-            s = input('사용 가능한 기술 입력(/로 구분) : ')
-            p = Ggoboogi(n, s)
-        elif pokemon=='3':
-            n = input('플레이어 이름 입력 : ')
-            s = input('사용 가능한 기술 입력(/로 구분) : ')
-            p = Pairi(n, s)
-        else:
-            print('메뉴에서 골라주세요')
-
-
-        p.info()
-        attack_menu = input('공격 번호 선택 : ')
-        p.attack(int(attack_menu)-1)
-
-
-    else:
-        print('메뉴에서 골라주세요')
-
-# p0 = Pokemon('아이리스','어떤공격')
-# p0.attack(0)  #얘는 부모 클래스의 attack만 사용 가능 (자식 클래스가 없으므로)
-# #p0.swim()  #꼬부기 클래스의 객체만 사용 가능
+# class PrettyMixin():
+#     def dump(self):
+#         import pprint
+#         pprint.pprint(vars(self))
+# class Thing(PrettyMixin):
+#     pass
 #
-# pi1 = Pikachu('한지우','번개/100만볼트')  #부모클래스 생성자 쓰고 그 후 자기 클래스 생성자 사용
-# #pi1.info()
-# ggo1= Ggoboogi('오바람','고속스핀/거품/몸통박치기')
-# #ggo1.info()
-# ggo1.attack(2)
-# ggo1.swim()
-# pi1.attack((1))
+# t=Thing()
+# t.name="Nyarlathotep"
+# t.feature="ichor"
+# t.age="eldritch"
+# t.dump()
+
+class Duck():
+    color='white'
+    def __init__(self, input_name):
+        self.__hidden_name=input_name
+
+    @staticmethod  #이거 하면 괄호에 self 안들어감
+    def test():
+        print('정적')
+
+    @classmethod  #ㅇ거하면 cls가 들어감
+    def ace(cls):
+        print('클래스')
+
+        ## static, class method는 클래스의 / 딴건 객체의 -> self
+
+    @property
+    def name(self):
+        print('inside the getter')
+        return self.__hidden_name
+
+    @name.setter
+    def name(self, input_name):
+        print('inside the setter')
+        self.__hidden_name = input_name
+
+    #name = property(get_name, set_name)
+
+    # def get_name(self):
+    #     print('inside the getter')
+    #     return self.hidden_name
+    # def set_name(self, input_name):
+    #     print('inside the setter')
+    #     self.hidden_name=input_name
+    # name=property(get_name, set_name)
 
 
-#print(ggo1.skills)
 
-# pi1.info()
+
+
+don=Duck('Donald')
+print(Duck.ace(), Duck.test(), don.ace(), don.test())  #객체 없이 사용 가능한 것들
+
+
+print(don.color, Duck.color)
+don.color='blue'
+print(don.color, Duck.color)  #객체만 색상 바뀜
+Duck.color = 'green'  #클래스 속성 변경 (클래스 변수 값 변경)
+print(don.color, Duck.color)   #Duck도 바뀜
+d2= Duck('Induk')
+print(don.color, Duck.color, d2.color)
+
+
+#print(don.get_name())
+print(don.name)
+#don.set_name('Donna')
+don.name='Donna'
+#print(don.get_name())
+don.__hidden_name='Kiminha'
+print(don.name)
+# print(don.get_name)
