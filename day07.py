@@ -1,75 +1,51 @@
-#믹스인
+import math
 
-# class PrettyMixin():
-#     def dump(self):
-#         import pprint
-#         pprint.pprint(vars(self))
-# class Thing(PrettyMixin):
-#     pass
-#
-# t=Thing()
-# t.name="Nyarlathotep"
-# t.feature="ichor"
-# t.age="eldritch"
-# t.dump()
+class Shape:
+    def __init__(self, x, y):
+        self.x=x
+        self.y=y
 
-class Duck():
-    color='white'
-    def __init__(self, input_name):
-        self.__hidden_name=input_name
-
-    @staticmethod  #이거 하면 괄호에 self 안들어감
-    def test():
-        print('정적')
-
-    @classmethod  #ㅇ거하면 cls가 들어감
-    def ace(cls):
-        print('클래스')
-
-        ## static, class method는 클래스의 / 딴건 객체의 -> self
-
-    @property
-    def name(self):
-        print('inside the getter')
-        return self.__hidden_name
-
-    @name.setter
-    def name(self, input_name):
-        print('inside the setter')
-        self.__hidden_name = input_name
-
-    #name = property(get_name, set_name)
-
-    # def get_name(self):
-    #     print('inside the getter')
-    #     return self.hidden_name
-    # def set_name(self, input_name):
-    #     print('inside the setter')
-    #     self.hidden_name=input_name
-    # name=property(get_name, set_name)
+    def get_area(self):
+        print('도형의 면적을 출력합니다')
 
 
+class Circle(Shape):
+    def __init__(self, x, y, radius):
+        super().__init__(x,y)
+        self.radius = radius
+
+    def get_area(self):
+        return math.pi * self.radius * self.radius
 
 
-
-don=Duck('Donald')
-print(Duck.ace(), Duck.test(), don.ace(), don.test())  #객체 없이 사용 가능한 것들
-
-
-print(don.color, Duck.color)
-don.color='blue'
-print(don.color, Duck.color)  #객체만 색상 바뀜
-Duck.color = 'green'  #클래스 속성 변경 (클래스 변수 값 변경)
-print(don.color, Duck.color)   #Duck도 바뀜
-d2= Duck('Induk')
-print(don.color, Duck.color, d2.color)
+class Rectangle(Shape):
+    def __init__(self, x, y, width, length):
+        super().__init__(x, y)
+        self.width = width
+        self.length = length
 
 
-#print(don.get_name())
-print(don.name)
-#don.set_name('Donna')
-don.name='Donna'
-#print(don.get_name())
-don.__hidden_name='Kiminha'
-print(don.name)
-# print(don.get_name)
+    def get_area(self):
+        return self.width * self.length
+
+c1= Circle(100, 100, 10.0)
+c2=Circle(50, 50, 2.0)
+r1=Rectangle(100, 50, 5, 2)
+
+print(f'사각형의 좌표는 x: {r1.x}, y: {r1.y}이고 넓이는 {r1.get_area()}')
+
+print(c1.get_area())
+print(c2.get_area())
+print(r1.get_area())
+
+
+class Cylinder(Circle):
+    def __init__(self, x, y, radius, height):
+        super().__init__(x,y, radius)
+        self.height = height
+
+    def get_area(self):  #get_volume
+        return super().get_area() * self.height
+
+cy1 = Cylinder(20, 20, 10.0, 2)
+print(cy1.get_area())
