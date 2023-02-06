@@ -1,115 +1,139 @@
-## 클래스와 함수 선언 부분 ##
-class Node() :
-	def __init__ (self) :
-		self.data = None
-		self.link = None
+class Node:
+    def __init__(self, data):
+        self.data = data
+        self.link = None
 
-def print_nodes(start) :
-	current = start
-	if current == None :
-		return
-	print(current.data, end = ' ')
-	while current.link != None:
-		current = current.link
-		print(current.data, end = ' ')
-	print()
 
-def insert_nodes(findData, insertData) :
-	global memory, head, current, pre
+def print_nodes(start):
+    current = start
+    if current == None :
+        return
+    print(current.data, end=' ')
+    while current.link != start:  #
+        current = current.link
+        print(current.data, end=' ')
+    print()
 
-	if head.data == findData :      # 첫 번째 노드 삽입
-		node = Node()
-		node.data = insertData
-		node.link = head
-		head = node
-		return
 
-	current = head
-	while current.link != None :    # 중간 노드 삽입
-		pre = current
-		current = current.link
-		if current.data == findData :
-			node = Node()
-			node.data = insertData
-			node.link = current
-			pre.link = node
-			return
+def insert_nodes(find_data, insert_data):
+    global head, current, pre
+    if head.data == find_data:
+        node = Node(insert_data)
+        node.link = head
+        last = head
+        while last.link != head:
+            last = last.link
+        last.link = node
+        head = node
+        return
 
-	node = Node()                   # 마지막 노드 삽입
-	node.data = insertData
-	current.link = node
+    current = head
+    while current.link != head:
+        pre = current
+        current = current.link
+        if current.data == find_data:
+            node = Node(insert_data)
+            node.link = current
+            pre.link = node
+            return
+
+    node = Node(insert_data)
+    current.link = node
+    node.link = head
+
 
 def delete_nodes(delete_data):
-    global memory, head, current, pre
+    global head, current, pre
 
     if head.data == delete_data:
-        print("첫번째 노드가 삭제됨")
         current = head
         head = head.link
+        last = head  #
+        while last.link != current:  #
+            last = last.link  #
+        last.link = head  #
         del current
         return
 
     current = head
-    while current.link != None:
+    while current.link != head:
         pre = current
         current = current.link
         if current.data == delete_data:
-            print('중간 노드 삭제됨')
             pre.link = current.link
             del current
             return
 
-    print('삭제할 노드 찾지 못함')
-    #삭제할 데이터를 못찾은 경우 함수 종료
-
 
 def find_nodes(find_data):
-	global memory, head, current, pre
+    global head, current, pre
 
-	current = head
-	if current.data == find_data:
-		return current
+    current = head
+    if current.data == find_data:
+        return current
 
-	while current.link != None:
-		current = current.link
-		if current.data == find_data:
-			return current
+    while current.link != head:  #
+        current = current.link
+        if current.data == find_data:
+            return current
 
-	return Node()
+    return Node(None)
 
-## 전역 변수 선언 부분 ##
-memory = []
+
+def is_find(find_data):
+    """
+    연결 리스트안에서 원소 존재 여부 판정 함수
+    :param find_data: 찾고자 하는 원소. str
+    :return: 연결 리스트안에서 원소가 존재하면 True리턴 아니면 False
+    """
+
+    global head, current, pre
+
+    current = head
+    if current.data == find_data:
+        return True
+
+    while current.link != head:  #
+        current = current.link
+        if current.data == find_data:
+            return True
+
+    return False
+
 head, current, pre = None, None, None
-dataArray = ["피카츄", "라이츄", "꼬부기", "파이리", "이상해"]
+data_array = ["피카츄", "라이츄", "꼬부기", "파이리", "이상해"]
 
-## 메인 코드 부분 ##
-if __name__ == "__main__" :
-    node = Node()  # 첫 번째 노드
-    node.data = dataArray[0]
+
+if __name__ == "__main__":
+    node = Node(data_array[0])
     head = node
-    memory.append(node)
+    node.link = head
 
-    for data in dataArray[1:]:  # 두 번째 노드부터
+    for data in data_array[1:]:
         pre = node
-        node = Node()
-        node.data = data
+        node = Node(data)
         pre.link = node
-        memory.append(node)
+        node.link = head
 
 
-print_nodes(head)
-insert_nodes("피카츄", "잠만보")
+    print(is_find('꼬부기'))
+    print(is_find('성윤모'))
+    print(find_nodes('꼬부기').data)
+    print(find_nodes('김인하').data)
+    print(find_nodes('피카츄').data)
 
-print_nodes(head)
-insert_nodes("파이리", "어니부기")
+    # print_nodes(head)
+    # delete_nodes("피카츄")
+    # print_nodes(head)
+    # delete_nodes("파이리")
+    # print_nodes(head)
+    # delete_nodes("김인하")
+    # print_nodes(head)
 
-print_nodes(head)
-insert_nodes("ㄴㅇㄹ", "거북왕")
-print_nodes(head)
-
-delete_nodes("잠만보")
-print_nodes(head)
-
-print(find_nodes("파이리").data)
-print(find_nodes("rkd").data)
-
+    # print_nodes(head)
+    # insert_nodes("피카츄", "잠만보")
+    # print_nodes(head)
+    # insert_nodes("파이리", "어니부기")
+    # print_nodes(head)
+    # insert_nodes("성윤모", "거북왕")
+    # print_nodes(head)
