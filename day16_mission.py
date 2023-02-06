@@ -1,69 +1,61 @@
-#5장 응용예제 '현재 위치부터 가까운 편의점 관리하기'
-import math
+#6장 응용예제 "헨젤과 그레텔의 집으로 돌아가기"
 import random
 
-class Node():
-    def __init__(self, data):
-        self.data = data
-        self.link = None
 
-def sort_dis(stores):
-    global head, pre, current
-    dis = math.sqrt(stores[1] * stores[1] + stores[2] * stores[2])
-    node = Node((stores[0], dis))
-    # node.link = head
-    if head==None:
-        head = node
-        last = node
-        node.link = head
-        return
+def is_full():
+    global SIZE, stack, top
+    if(top>=SIZE-1):
+        return True
+    else:
+        return False
 
-    if head.data[1] >= node.data[1]:
-        node.link = head
-        last = head #임시
-        while last.link != head:
-            last = last.link
-        # last가 진짜 last
-        last.link = node
-        head = node
-        return
-    current = head
-    while current.link != head:
-        pre = current
-        current = current.link
-        if current.data[1] >= node.data[1]:
-            node.link = current
-            pre.link = node
-            return
+def is_empty():
+    global SIZE, stack, top
+    if(top==-1):
+        return True
+    else:
+        return False
 
-    # 끝까찌 왔을 떄
-    # 원형을 만들어주는 코드
-    # current : last
-    current.link = node
-    node.link = head
+def push(data):
+    global SIZE, stack, top
+    if is_full():
+        print("full")
+    else:
+        stack[top]=data
+        top+=1
 
-    return
+def pop():
+    global SIZE, stack, top
+    if is_empty():
+        print("empty")
+    else:
+        data = stack[top]
+        stack[top]=None
+        top-=1
+        return data
 
 
-def print_nodes(start):
-    global current, head, pre
-    current = start
-    print(f'{current.data[0]}편의점, 거리 : {current.data[1]}')
-    while current.link != start:
-        current = current.link
-        print(f'{current.data[0]}편의점, 거리 : {current.data[1]}')
-
-head, pre, current = None, None, None
+top= -1
+SIZE = int(input("돌 개수 : "))
+stack = [None for _ in range(SIZE)]
 
 if __name__ == '__main__':
-    for i in range(10):
-        x = random.randint(1, 100)
-        y = random.randint(1, 100)
+    stones = list()
+    for i in range(SIZE):
+        color=input("돌 색 : ")
+        stones.append(color)
 
-        name = chr(ord('A') + i)
-        stores = (name, x, y)
-        sort_dis(stores)
+    random.shuffle(stones)
 
-    print_nodes(head)
+    for i in range(SIZE):
+        push(stones[i])
 
+    print('과자집 가는 길 : ', end='')
+    for i in range(SIZE):
+        print(stack[i] + ' ', end='')
+
+
+    print('\n우리집 오는 길 : ', end='')
+    for i in range(SIZE):
+        print(pop() + ' ', end='')
 
