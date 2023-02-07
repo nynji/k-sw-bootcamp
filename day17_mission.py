@@ -10,17 +10,11 @@ class treenode():
 
 def is_queue_full():
     global SIZE, front, rear, queue
-    if rear != SIZE-1:
-        return False
-    if rear == SIZE-1 and front == -1:
+    if (rear+1)%SIZE == front:
         return True
     else:
-        for i in range(front+1, SIZE):
-            queue[i-1]=queue[i]
-            queue[i]=None
-        front -= 1
-        rear -= 1
         return False
+
 
 def is_queue_empty():
     global SIZE, front, rear, queue
@@ -34,7 +28,7 @@ def en_queue(data):
     if is_queue_full():
         print('full')
         return
-    rear+=1
+    rear= (rear+1)%SIZE
     queue[rear]=data
 
 def de_queue():
@@ -42,7 +36,7 @@ def de_queue():
     if is_queue_empty():
         print('empty')
         return
-    front+=1
+    front=(front+1)%SIZE
     data = queue[front]
     queue[front]=None
     return data
@@ -51,24 +45,23 @@ def peek():
     if is_queue_empty():
         print('empty')
         return
-    return queue[front+1]
+    return queue[(front+1)%SIZE]
 
 
 
-front = rear = -1
-SIZE = 5
-queue=['정국', '뷔','지민','진','슈가']
+front = rear = 0
+SIZE = 6
+queue=[None for _ in range(SIZE)]
 
 if __name__ == '__main__':
-    random.shuffle(queue)
-    print(f'대기 줄 상태 : {queue}')
-    for data in queue:
-        en_queue(data)
-    for i in range(SIZE):
-        print(f'{de_queue()}님 식당에 들어감')
-        is_queue_full()
-        rear +=1
-        print(f'대기 줄 상태 : {queue}')
+    person = (('사용', 9), ('고장', 3), ('환불', 4), ('기타', 1))
+    time = 0
+    for i in range(SIZE-1):
+        en_queue(person[random.randint(0,3)])
+        time = time + queue[i+1][1]
 
-    print('식당 영업 종료')
+        print(f'귀하의 대기 예상 시간은 {time}분 입니다')
+        print(f'현재 대기 콜 --> {queue}\n')
+
+
 
