@@ -7,61 +7,64 @@ class treenode():
         self.data = None
         self.right = None
 
-
-def is_queue_full():
-    global SIZE, front, rear, queue
-    if (rear+1)%SIZE == front:
-        return True
-    else:
-        return False
-
-
-def is_queue_empty():
-    global SIZE, front, rear, queue
-    if front == rear:
-        return True
-    else:
-        return False
-
-def en_queue(data):
-    global SIZE, front, rear, queue
-    if is_queue_full():
-        print('full')
+def preorder(node):
+    if node == None:
         return
-    rear= (rear+1)%SIZE
-    queue[rear]=data
+    print(node.data, end=' ')
+    preorder(node.left)
+    preorder(node.right)
 
-def de_queue():
-    global SIZE, front, rear, queue
-    if is_queue_empty():
-        print('empty')
+def inorder(node):
+    if node == None:
         return
-    front=(front+1)%SIZE
-    data = queue[front]
-    queue[front]=None
-    return data
+    inorder(node.left)
+    print(node.data, end=' ')
+    inorder(node.right)
 
-def peek():
-    if is_queue_empty():
-        print('empty')
+def postorder(node):
+    if node == None:
         return
-    return queue[(front+1)%SIZE]
+    postorder(node.left)
+    postorder(node.right)
+    print(node.data, end=' ')
 
-
-
-front = rear = 0
-SIZE = 6
-queue=[None for _ in range(SIZE)]
 
 if __name__ == '__main__':
-    person = (('사용', 9), ('고장', 3), ('환불', 4), ('기타', 1))
-    time = 0
-    for i in range(SIZE-1):
-        en_queue(person[random.randint(0,3)])
-        time = time + queue[i+1][1]
+    things = ['바나나맛우유', '레쓰비캔커피', '츄파춥스','도시락','삼다수','코카콜라','삼각김밥']
+    sell = [random.choice(things) for _ in range(20)]
+    print(f'오늘 판매된 물건(중복O) --> {sell}')
+    node = treenode()
+    node.data = sell[0]
+    root = node
 
-        print(f'귀하의 대기 예상 시간은 {time}분 입니다')
-        print(f'현재 대기 콜 --> {queue}\n')
+    for name in sell[1:]:
+        node=treenode()
+        node.data = name
+
+        current = root
+        while True:
+            if node.data == current.data:
+                break
+            if node.data < current.data:
+                if current.left == None:
+                    current.left = node
+                    break
+                current = current.left
+
+            elif node.data > current.data:
+                if current.right == None:
+                    current.right = node
+                    break
+                current = current.right
+
+    print('이진탐색트리 구현 완료')
+    print('오늘 판매될 물건(중복X) --> ', end=' ')
+    preorder(root)
+
+
+
+
+
 
 
 
